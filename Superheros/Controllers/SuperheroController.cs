@@ -14,10 +14,11 @@ namespace Superheros.Controllers
     public class SuperheroController : Controller
     {
         public ApplicationDbContext context;
-        public SuperheroController()
+        public SuperheroController(ApplicationDbContext _context)
         {
-            context = new ApplicationDbContext();
+            context = _context;
         }
+
         // GET: SuperheroController
         public ActionResult Index()
         {
