@@ -42,11 +42,10 @@ namespace Superheros.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Superhero superhero) //add to to the database
         {
-            context.Superheroes.Add(superhero);
-            context.SaveChanges();
-
             try
             {
+                context.Superheroes.Add(superhero);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));               
             }
             catch
@@ -68,6 +67,7 @@ namespace Superheros.Controllers
         {
             try
             {
+
                 return RedirectToAction(nameof(Index));
             }
             catch
