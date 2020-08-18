@@ -41,7 +41,7 @@ namespace Superheros.Controllers
         // POST: SuperheroController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Superhero superhero) //add to to the database
+        public ActionResult Create(Superhero superhero)
         {
             try
             {
@@ -82,16 +82,19 @@ namespace Superheros.Controllers
         // GET: SuperheroController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Superhero superhero = context.Superheroes.Find(id); 
+            return View(superhero);
         }
 
         // POST: SuperheroController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection Superhero)
+        public ActionResult Delete(int id, Superhero superhero)
         {
             try
             {
+                context.Superheroes.Remove(superhero);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
