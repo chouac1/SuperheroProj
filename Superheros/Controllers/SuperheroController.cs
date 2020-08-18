@@ -14,15 +14,16 @@ namespace Superheros.Controllers
     public class SuperheroController : Controller
     {
         public ApplicationDbContext context;
-        public SuperheroController(ApplicationDbContext _context)
+        public SuperheroController(ApplicationDbContext _context) 
         {
-            context = _context;
+            context = _context; 
         }
 
         // GET: SuperheroController
         public ActionResult Index()
         {
-            return View();
+            var superheroCollection = context.Superheroes;
+            return View(superheroCollection);
         }
 
         // GET: SuperheroController/Details/5
@@ -57,17 +58,19 @@ namespace Superheros.Controllers
         // GET: SuperheroController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Superhero superhero = context.Superheroes.Find(id);
+            return View(superhero);
         }
 
         // POST: SuperheroController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Superhero superhero)
         {
             try
             {
-
+                context.Superheroes.Update(superhero);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -85,7 +88,7 @@ namespace Superheros.Controllers
         // POST: SuperheroController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, IFormCollection Superhero)
         {
             try
             {
